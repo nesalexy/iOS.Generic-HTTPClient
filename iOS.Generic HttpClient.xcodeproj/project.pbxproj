@@ -13,6 +13,8 @@
 		787653FD2C14994B0086FBFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 787653FC2C14994B0086FBFC /* Preview Assets.xcassets */; };
 		787654072C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */; };
 		787654212C1499750086FBFC /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654202C1499750086FBFC /* HTTPClient.swift */; };
+		787654232C14A8B30086FBFC /* URLRequestSpyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654222C14A8B30086FBFC /* URLRequestSpyProtocol.swift */; };
+		787654252C14A8EB0086FBFC /* HTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654242C14A8EB0086FBFC /* HTTPClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		787654022C14994B0086FBFC /* iOS.Generic HttpClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS.Generic HttpClientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Generic_HttpClientTests.swift; sourceTree = "<group>"; };
 		787654202C1499750086FBFC /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		787654222C14A8B30086FBFC /* URLRequestSpyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestSpyProtocol.swift; sourceTree = "<group>"; };
+		787654242C14A8EB0086FBFC /* HTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */,
+				787654222C14A8B30086FBFC /* URLRequestSpyProtocol.swift */,
+				787654242C14A8EB0086FBFC /* HTTPClientTests.swift */,
 			);
 			path = "iOS.Generic HttpClientTests";
 			sourceTree = "<group>";
@@ -218,7 +224,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787654232C14A8B30086FBFC /* URLRequestSpyProtocol.swift in Sources */,
 				787654072C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift in Sources */,
+				787654252C14A8EB0086FBFC /* HTTPClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
