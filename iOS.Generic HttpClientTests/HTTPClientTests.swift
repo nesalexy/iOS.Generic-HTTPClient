@@ -10,7 +10,6 @@ import XCTest
 import Combine
 
 final class HTTPClientTests: XCTestCase {
-
     var cancellables = Set<AnyCancellable>()
 }
 
@@ -79,8 +78,13 @@ extension HTTPClientTests {
             } receiveValue: {_ in }
             .store(in: &cancellables)
         
-        /// Assert
+        /// Assert
         wait(for: [expectation], timeout: 1)
     }
+    
+}
+
+// MARK: - Testing Swift Concurrency
+extension HTTPClientTests {
     
 }
