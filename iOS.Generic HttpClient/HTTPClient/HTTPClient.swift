@@ -17,7 +17,7 @@ enum HTTPClientError: Error {
 protocol HTTPClient {
     func publisher(request: URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
     func data(request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse)
-    func make(request: URLRequest, _ completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ())
+    func make(request: URLRequest, _ completion: @escaping (Result<(data: Data, response: HTTPURLResponse), Error>) -> ())
 }
 
 
@@ -45,9 +45,9 @@ extension URLSession: HTTPClient  {
         return (data: data, response: httpResponse)
     }
     
-    func make(request: URLRequest, _ completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
+    func make(request: URLRequest, _ completion: @escaping (Result<(data: Data, response: HTTPURLResponse), Error>) -> ()) {
         dataTask(with: request) { data, response, error in
-            var result: (Result<(Data, HTTPURLResponse), Error>)
+            var result: (Result<(data: Data, response: HTTPURLResponse), Error>)
             
             defer {
                 completion(result)
@@ -67,7 +67,7 @@ extension URLSession: HTTPClient  {
                 return
             }
             
-            result = .success((unwrappedData, httpResponse))
+            result = .success((data: unwrappedData, response: httpResponse))
         }
         .resume()
     }
