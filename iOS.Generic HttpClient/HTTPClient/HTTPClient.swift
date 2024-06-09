@@ -15,26 +15,26 @@ enum HTTPClientError: Error {
 
 /// support Combine, Swift Concurrency, Closure
 protocol HTTPClient {
-    func publisher(request: URLRequest) -> AnyPublisher<(Data, HTTPURLResponse), Error>
-    func data(request: URLRequest) async throws -> Result<(Data, HTTPURLResponse), Error>
+    func publisher(request: URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+    func data(request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse)
     func make(request: URLRequest, _ completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ())
 }
 
 
 extension URLSession: HTTPClient  {
-    func publisher(request: URLRequest) -> AnyPublisher<(Data, HTTPURLResponse), Error> {
+    func publisher(request: URLRequest) -> AnyPublisher<(data: Data, response: HTTPURLResponse), Error> {
         dataTaskPublisher(for: request)
             .tryMap { result in
                 guard let httpResponse = result.response as? HTTPURLResponse else {
                     throw HTTPClientError.httpCastingError
                 }
                 
-                return (result.data, httpResponse)
+                return (data: result.data, response: httpResponse)
             }
             .eraseToAnyPublisher()
     }
     
-    func data(request: URLRequest) async throws -> Result<(Data, HTTPURLResponse), Error> {
+    func data(request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
         let result = try await data(for: request)
         let response = result.1
         let data = result.0
@@ -42,7 +42,7 @@ extension URLSession: HTTPClient  {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw HTTPClientError.httpCastingError
         }
-        return .success((data, httpResponse))
+        return (data: data, response: httpResponse)
     }
     
     func make(request: URLRequest, _ completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {

@@ -10,6 +10,7 @@ import XCTest
 import Combine
 
 final class HTTPClientTests: XCTestCase {
+    let url = URL(string: "https://test.com")!
     var cancellables = Set<AnyCancellable>()
 }
 
@@ -19,17 +20,11 @@ extension HTTPClientTests {
     func testPublisher_DataNotNil_ResponseNotNil() {
         /// Arrange
         let url = URL(string: "https://test.com")!
-        URLRequestSpyProtocol.requestHandler = { request in
-            (HTTPURLResponse(url: url,
-                            statusCode: 200,
-                            httpVersion: nil,
-                            headerFields: nil)!,
-             Data())
-        }
-        
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [URLRequestSpyProtocol.self]
-        let urlSession = URLSession(configuration: configuration)
+        let urlSession = makeSession(with: (HTTPURLResponse(url: url,
+                                                            statusCode: 200,
+                                                            httpVersion: nil,
+                                                            headerFields: nil)!,
+                                            Data()))
         
         let expectation = XCTestExpectation(description: "Request by Combine with expected Data")
         
@@ -42,11 +37,8 @@ extension HTTPClientTests {
                 }
                 expectation.fulfill()
             } receiveValue: { result in
-                let data = result.0
-                let response = result.1
-                
-                XCTAssertNotNil(data)
-                XCTAssertNotNil(response)
+                XCTAssertNotNil(result.data)
+                XCTAssertNotNil(result.response)
             }
             .store(in: &cancellables)
         
@@ -56,14 +48,7 @@ extension HTTPClientTests {
     
     func testPublisher_DataNotNil_ResponseNil() {
         /// Arrange
-        let url = URL(string: "https://test.com")!
-        URLRequestSpyProtocol.requestHandler = { request in
-            (nil, Data())
-        }
-        
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [URLRequestSpyProtocol.self]
-        let urlSession = URLSession(configuration: configuration)
+        let urlSession = makeSession(with: (nil, Data()))
         
         let expectation = XCTestExpectation(description: "Request by Combine with expected Response error")
         
@@ -82,9 +67,67 @@ extension HTTPClientTests {
         wait(for: [expectation], timeout: 1)
     }
     
+    func testPublisher_CheckStatusCode() {
+        /// Arrange
+        let urlSession = makeSession(with: (HTTPURLResponse(url: url,
+                                                            statusCode: 200,
+                                                            httpVersion: nil,
+                                                            headerFields: nil)!,
+                                            Data()))
+        
+        let expectation = XCTestExpectation(description: "Request by Combine check status code")
+        
+        /// Act
+        urlSession.publisher(request: URLRequest(url: url))
+            .sink { _ in
+            } receiveValue: { result in
+                XCTAssertEqual(result.response.statusCode, 200)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        /// Assert
+        wait(for: [expectation], timeout: 1)
+    }
+    
 }
 
 // MARK: - Testing Swift Concurrency
 extension HTTPClientTests {
     
+    func testSwiftConcurrency_DataNotNil_ResponseNotNil() async throws {
+        let urlSession = makeSession(with: (HTTPURLResponse(url: url,
+                                                            statusCode: 200,
+                                                            httpVersion: nil,
+                                                            headerFields: nil)!,
+                                            Data()))
+        
+        let result = try await urlSession.data(request: URLRequest(url: url))
+        XCTAssertNotNil(result.data)
+        XCTAssertNotNil(result.response)
+    }
+    
+    
+    func testSwiftConcurrency_CheckStatusCode() async throws {
+        let urlSession = makeSession(with: (HTTPURLResponse(url: url,
+                                                            statusCode: 200,
+                                                            httpVersion: nil,
+                                                            headerFields: nil)!,
+                                            Data()))
+        
+        let result = try await urlSession.data(request: URLRequest(url: url))
+        XCTAssertEqual(200, result.response.statusCode)
+    }
+}
+
+// MARK: - Helpers
+extension HTTPClientTests {
+    func makeSession(with response: (HTTPURLResponse?, Data)) -> URLSession {
+        URLRequestSpyProtocol.requestHandler = { request in
+            response
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLRequestSpyProtocol.self]
+        return URLSession(configuration: configuration)
+    }
 }
