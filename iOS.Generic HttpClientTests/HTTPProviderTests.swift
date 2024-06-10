@@ -121,6 +121,48 @@ extension HTTPProviderTests {
     }
 }
 
+// MARK: - Delete user
+extension HTTPProviderTests {
+    func testUserProvider_preparedData_DELETE() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.deleteUser(id: userID)
+        XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
+        XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
+        XCTAssertEqual("users", provider.path)
+        
+        /// testing query
+        let expectedQueryItems = [
+            URLQueryItem(name: "userID", value: userID),
+        ]
+        XCTAssertEqual(provider.query?.count, expectedQueryItems.count)
+        for (index, queryItem) in expectedQueryItems.enumerated() {
+            XCTAssertEqual(provider.query?[index].name, queryItem.name)
+            XCTAssertEqual(provider.query?[index].value, queryItem.value)
+        }
+        XCTAssertNil(provider.headers)
+        XCTAssertEqual(HTTPMethod.DELETE.rawValue, provider.method)
+        XCTAssertEqual(ContentType.json, provider.contentType)
+        XCTAssertNil(try provider.getData())
+    }
+
+    func testUserProvider_makeRequest_DELETE() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.deleteUser(id: userID)
+        let request = try provider.makeRequest()
+        
+        let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users?userID=1"
+        XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
+        XCTAssertEqual(request.httpMethod, HTTPMethod.DELETE.rawValue)
+        XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
+        
+        if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
+            XCTAssertEqual(ContentType.json.value, contentTypeValue)
+        } else {
+            XCTFail("The Content-Type header is missing")
+        }
+        XCTAssertNil(request.httpBody)
+    }
+}
 
 // MARK: - Helpers
 
