@@ -8,16 +8,10 @@
 import XCTest
 @testable import iOS_Generic_HttpClient
 
-final class HTTPProviderTests: XCTestCase {
+final class HTTPProviderTests: XCTestCase {}
 
-    override func setUpWithError() throws {
-        
-    }
-
-    override func tearDownWithError() throws {
-        
-    }
-    
+// MARK: - Get users
+extension HTTPProviderTests {
     func testUsersProvider_preparedData() throws {
         let provider = StubHTTPProvider.getUsers
         XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
@@ -34,8 +28,8 @@ final class HTTPProviderTests: XCTestCase {
         let provider = StubHTTPProvider.getUsers
         let request = try provider.makeRequest()
         
-        XCTAssertEqual("\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users", 
-                       request.url?.absoluteString)
+        let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users"
+        XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
         XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue)
         XCTAssertNil(request.httpBody)
         XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
@@ -49,6 +43,51 @@ final class HTTPProviderTests: XCTestCase {
         XCTAssertNil(request.httpBody)
     }
 }
+
+// MARK: - Get user
+extension HTTPProviderTests {
+    func testUserProvider_preparedData() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.getUser(id: userID)
+        XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
+        XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
+        XCTAssertEqual("users", provider.path)
+        
+        /// testing query
+        let expectedQueryItems = [
+            URLQueryItem(name: "userID", value: userID),
+        ]
+        XCTAssertEqual(provider.query?.count, expectedQueryItems.count)
+        for (index, queryItem) in expectedQueryItems.enumerated() {
+            XCTAssertEqual(provider.query?[index].name, queryItem.name)
+            XCTAssertEqual(provider.query?[index].value, queryItem.value)
+        }
+        XCTAssertNil(provider.headers)
+        XCTAssertEqual(HTTPMethod.GET.rawValue, provider.method)
+        XCTAssertEqual(ContentType.json, provider.contentType)
+        XCTAssertNil(try provider.getData())
+    }
+
+    func testUserProvider_makeRequest() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.getUser(id: userID)
+        let request = try provider.makeRequest()
+        
+        let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users?userID=1"
+        XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
+        XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue)
+        XCTAssertNil(request.httpBody)
+        XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
+        
+        if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
+            XCTAssertEqual(ContentType.json.value, contentTypeValue)
+        } else {
+            XCTFail("The Content-Type header is missing")
+        }
+        XCTAssertNil(request.httpBody)
+    }
+}
+
 
 // MARK: - Helpers
 
