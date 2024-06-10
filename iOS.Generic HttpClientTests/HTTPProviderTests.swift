@@ -12,7 +12,7 @@ final class HTTPProviderTests: XCTestCase {}
 
 // MARK: - Get users
 extension HTTPProviderTests {
-    func testUsersProvider_preparedData() throws {
+    func testUsersProvider_preparedData_GET() throws {
         let provider = StubHTTPProvider.getUsers
         XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
         XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
@@ -24,14 +24,13 @@ extension HTTPProviderTests {
         XCTAssertNil(try provider.getData())
     }
     
-    func testUsersProvider_makeRequest() throws {
+    func testUsersProvider_makeRequest_GET() throws {
         let provider = StubHTTPProvider.getUsers
         let request = try provider.makeRequest()
         
         let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users"
         XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
         XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue)
-        XCTAssertNil(request.httpBody)
         XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
         
         if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
@@ -46,7 +45,7 @@ extension HTTPProviderTests {
 
 // MARK: - Get user
 extension HTTPProviderTests {
-    func testUserProvider_preparedData() throws {
+    func testUserProvider_preparedData_GET() throws {
         let userID = "1"
         let provider = StubHTTPProvider.getUser(id: userID)
         XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
@@ -68,7 +67,7 @@ extension HTTPProviderTests {
         XCTAssertNil(try provider.getData())
     }
 
-    func testUserProvider_makeRequest() throws {
+    func testUserProvider_makeRequest_GET() throws {
         let userID = "1"
         let provider = StubHTTPProvider.getUser(id: userID)
         let request = try provider.makeRequest()
@@ -76,7 +75,6 @@ extension HTTPProviderTests {
         let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users?userID=1"
         XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
         XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue)
-        XCTAssertNil(request.httpBody)
         XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
         
         if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
@@ -85,6 +83,41 @@ extension HTTPProviderTests {
             XCTFail("The Content-Type header is missing")
         }
         XCTAssertNil(request.httpBody)
+    }
+}
+
+// MARK: - Create user
+extension HTTPProviderTests {
+    func testUserProvider_preparedData_CREATE() throws {
+        let mockUser = MockUser(id: "1")
+        let provider = StubHTTPProvider.createUser(user: mockUser)
+        
+        XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
+        XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
+        XCTAssertEqual("users", provider.path)
+        XCTAssertNil(provider.query)
+        XCTAssertNil(provider.headers)
+        XCTAssertEqual(HTTPMethod.POST.rawValue, provider.method)
+        XCTAssertEqual(ContentType.json, provider.contentType)
+        XCTAssertNotNil(try provider.getData())
+    }
+
+    func testUserProvider_makeRequest_CREATE() throws {
+        let mockUser = MockUser(id: "1")
+        let request = try StubHTTPProvider.createUser(user: mockUser).makeRequest()
+        
+        let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users"
+        XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
+        
+        XCTAssertEqual(request.httpMethod, HTTPMethod.POST.rawValue)
+        XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
+        
+        if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
+            XCTAssertEqual(ContentType.json.value, contentTypeValue)
+        } else {
+            XCTFail("The Content-Type header is missing")
+        }
+        XCTAssertNotNil(request.httpBody)
     }
 }
 

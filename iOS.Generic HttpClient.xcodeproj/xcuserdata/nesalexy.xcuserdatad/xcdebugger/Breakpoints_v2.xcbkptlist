@@ -126,9 +126,9 @@
             filePath = "iOS.Generic HttpClientTests/HTTPProviderTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "testUserProvider_makeRequest()"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "testUserProvider_makeRequest_GET()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
