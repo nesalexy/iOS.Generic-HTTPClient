@@ -168,7 +168,7 @@ extension HTTPProviderTests {
 extension HTTPProviderTests {
     func testUserProvider_preparedData_PUT() throws {
         let userID = "1"
-        let provider = StubHTTPProvider.partialUpgradeUser(id: userID,
+        let provider = StubHTTPProvider.fullUpdateUser(id: userID,
                                                            user: .init(id: userID, name: "Test"))
         XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
         XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
@@ -191,13 +191,58 @@ extension HTTPProviderTests {
 
     func testUserProvider_makeRequest_PUT() throws {
         let userID = "1"
-        let provider = StubHTTPProvider.partialUpgradeUser(id: userID,
+        let provider = StubHTTPProvider.fullUpdateUser(id: userID,
                                                            user: .init(id: userID, name: "Test"))
         let request = try provider.makeRequest()
         
         let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users?userID=1"
         XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
         XCTAssertEqual(request.httpMethod, HTTPMethod.PUT.rawValue)
+        XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
+        
+        if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
+            XCTAssertEqual(ContentType.json.value, contentTypeValue)
+        } else {
+            XCTFail("The Content-Type header is missing")
+        }
+        XCTAssertNotNil(request.httpBody)
+    }
+}
+
+// MARK: - PATCH user
+extension HTTPProviderTests {
+    func testUserProvider_preparedData_PATCH() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.partialUpgradeUser(id: userID,
+                                                           user: .init(id: userID, name: "Test"))
+        XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
+        XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
+        XCTAssertEqual("users", provider.path)
+        
+        /// testing query
+        let expectedQueryItems = [
+            URLQueryItem(name: "userID", value: userID),
+        ]
+        XCTAssertEqual(provider.query?.count, expectedQueryItems.count)
+        for (index, queryItem) in expectedQueryItems.enumerated() {
+            XCTAssertEqual(provider.query?[index].name, queryItem.name)
+            XCTAssertEqual(provider.query?[index].value, queryItem.value)
+        }
+        XCTAssertNil(provider.headers)
+        XCTAssertEqual(HTTPMethod.PATCH.rawValue, provider.method)
+        XCTAssertEqual(ContentType.json, provider.contentType)
+        XCTAssertNotNil(try provider.getData())
+    }
+
+    func testUserProvider_makeRequest_PATCH() throws {
+        let userID = "1"
+        let provider = StubHTTPProvider.partialUpgradeUser(id: userID,
+                                                           user: .init(id: userID, name: "Test"))
+        let request = try provider.makeRequest()
+        
+        let expectedAbsoluteString = "\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users?userID=1"
+        XCTAssertEqual(expectedAbsoluteString, request.url?.absoluteString)
+        XCTAssertEqual(request.httpMethod, HTTPMethod.PATCH.rawValue)
         XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
         
         if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
@@ -280,9 +325,9 @@ extension StubHTTPProvider  {
         case .deleteUser:
             HTTPMethod.DELETE.rawValue
         case .fullUpdateUser:
-            HTTPMethod.PATCH.rawValue
-        case .partialUpgradeUser:
             HTTPMethod.PUT.rawValue
+        case .partialUpgradeUser:
+            HTTPMethod.PATCH.rawValue
         }
     }
     
