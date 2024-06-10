@@ -18,7 +18,7 @@ final class HTTPProviderTests: XCTestCase {
         
     }
     
-    func testUsersProvider() throws {
+    func testUsersProvider_preparedData() throws {
         let provider = StubHTTPProvider.getUsers
         XCTAssertEqual(StubConstants.APIDetails.APIScheme, provider.scheme)
         XCTAssertEqual(StubConstants.APIDetails.APIHost, provider.host)
@@ -28,6 +28,25 @@ final class HTTPProviderTests: XCTestCase {
         XCTAssertEqual(HTTPMethod.GET.rawValue, provider.method)
         XCTAssertEqual(ContentType.json, provider.contentType)
         XCTAssertNil(try provider.getData())
+    }
+    
+    func testUsersProvider_makeRequest() throws {
+        let provider = StubHTTPProvider.getUsers
+        let request = try provider.makeRequest()
+        
+        XCTAssertEqual("\(StubConstants.APIDetails.APIScheme)://\(StubConstants.APIDetails.APIHost)/users", 
+                       request.url?.absoluteString)
+        XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue)
+        XCTAssertNil(request.httpBody)
+        XCTAssertTrue(request.allHTTPHeaderFields?.count == 1)
+        
+        if let contentTypeValue = request.allHTTPHeaderFields?[ContentType.json.key] {
+            XCTAssertEqual(ContentType.json.value, contentTypeValue)
+        } else {
+            XCTFail("The Content-Type header is missing")
+        }
+        
+        XCTAssertNil(request.httpBody)
     }
 }
 

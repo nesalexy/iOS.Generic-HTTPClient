@@ -48,7 +48,7 @@ extension HTTPProvider {
         components.host = host
         
         if let path = path {
-            components.path = path
+            components.path = path.hasPrefix("/") ? path : "/\(path)"
         }
         
         components.queryItems = query
@@ -58,5 +58,12 @@ extension HTTPProvider {
         }
         
         return url
+    }
+}
+
+
+extension URLRequest {
+    func getHeaderValue(forKey key: String) -> String? {
+        return allHTTPHeaderFields?[key]
     }
 }
