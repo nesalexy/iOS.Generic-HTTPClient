@@ -13,13 +13,14 @@ enum HTTPProviderError: Error {
 }
 
 protocol HTTPProvider {
-    var url: String { get }
+    var scheme: String { get }
+    var host: String { get }
     var path: String? { get }
     var query: [URLQueryItem]? { get }
     var headers: [String: String]? { get }
     var method: String { get }
     var contentType: ContentType  { get }
-    var body: Data? { get }
+    func getData() throws -> Data?
 }
 
 extension HTTPProvider {
@@ -34,7 +35,7 @@ extension HTTPProvider {
         
         request.setValue(contentType.value, forHTTPHeaderField: contentType.key)
         
-        if let body = body {
+        if let body = try getData() {
             request.httpBody = body
         }
         
@@ -43,8 +44,8 @@ extension HTTPProvider {
     
     private func generateURL() throws -> URL {
         var components = URLComponents()
-        components.scheme = Constants.APIDetails.APIScheme
-        components.host = Constants.APIDetails.APIHost
+        components.scheme = scheme
+        components.host = host
         
         if let path = path {
             components.path = path

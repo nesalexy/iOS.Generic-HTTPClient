@@ -19,6 +19,7 @@
 		789BBA342C17145A00D369DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA332C17145A00D369DC /* Constants.swift */; };
 		789BBA362C17146900D369DC /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA352C17146900D369DC /* ContentType.swift */; };
 		789BBA382C17147C00D369DC /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA372C17147C00D369DC /* HTTPMethod.swift */; };
+		789BBA3A2C1714F600D369DC /* HTTPProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA392C1714F600D369DC /* HTTPProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		789BBA332C17145A00D369DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		789BBA352C17146900D369DC /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		789BBA372C17147C00D369DC /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		789BBA392C1714F600D369DC /* HTTPProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */,
 				787654222C14A8B30086FBFC /* URLRequestSpyProtocol.swift */,
 				787654242C14A8EB0086FBFC /* HTTPClientTests.swift */,
+				789BBA392C1714F600D369DC /* HTTPProviderTests.swift */,
 			);
 			path = "iOS.Generic HttpClientTests";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				789BBA3A2C1714F600D369DC /* HTTPProviderTests.swift in Sources */,
 				787654232C14A8B30086FBFC /* URLRequestSpyProtocol.swift in Sources */,
 				787654072C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift in Sources */,
 				787654252C14A8EB0086FBFC /* HTTPClientTests.swift in Sources */,
