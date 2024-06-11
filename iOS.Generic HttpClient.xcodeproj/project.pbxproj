@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		787653F62C1499480086FBFC /* iOS_Generic_HttpClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787653F52C1499480086FBFC /* iOS_Generic_HttpClientApp.swift */; };
 		787653F82C1499480086FBFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787653F72C1499480086FBFC /* ContentView.swift */; };
-		787653FA2C14994B0086FBFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 787653F92C14994B0086FBFC /* Assets.xcassets */; };
 		787653FD2C14994B0086FBFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 787653FC2C14994B0086FBFC /* Preview Assets.xcassets */; };
 		787654072C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */; };
 		787654212C1499750086FBFC /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787654202C1499750086FBFC /* HTTPClient.swift */; };
@@ -20,6 +19,11 @@
 		789BBA362C17146900D369DC /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA352C17146900D369DC /* ContentType.swift */; };
 		789BBA382C17147C00D369DC /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA372C17147C00D369DC /* HTTPMethod.swift */; };
 		789BBA3A2C1714F600D369DC /* HTTPProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA392C1714F600D369DC /* HTTPProviderTests.swift */; };
+		789BBA3E2C17B6E600D369DC /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA3D2C17B6E600D369DC /* UserRepository.swift */; };
+		789BBA402C17B77C00D369DC /* UserExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA3F2C17B77C00D369DC /* UserExchange.swift */; };
+		789BBA422C17B7D600D369DC /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA412C17B7D600D369DC /* UserProvider.swift */; };
+		789BBA822C18360F00D369DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789BBA812C18360F00D369DC /* Assets.xcassets */; };
+		789BBA852C18371000D369DC /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789BBA842C18371000D369DC /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,6 @@
 		787653F22C1499480086FBFC /* iOS.Generic HttpClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS.Generic HttpClient.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		787653F52C1499480086FBFC /* iOS_Generic_HttpClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Generic_HttpClientApp.swift; sourceTree = "<group>"; };
 		787653F72C1499480086FBFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		787653F92C14994B0086FBFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		787653FC2C14994B0086FBFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		787654022C14994B0086FBFC /* iOS.Generic HttpClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS.Generic HttpClientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		787654062C14994B0086FBFC /* iOS_Generic_HttpClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Generic_HttpClientTests.swift; sourceTree = "<group>"; };
@@ -48,6 +51,12 @@
 		789BBA352C17146900D369DC /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		789BBA372C17147C00D369DC /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		789BBA392C1714F600D369DC /* HTTPProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPProviderTests.swift; sourceTree = "<group>"; };
+		789BBA3D2C17B6E600D369DC /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		789BBA3F2C17B77C00D369DC /* UserExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExchange.swift; sourceTree = "<group>"; };
+		789BBA412C17B7D600D369DC /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
+		789BBA432C17BBEB00D369DC /* iOS-Generic-HttpClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS-Generic-HttpClient-Info.plist"; path = "iOS.Generic HttpClient/Resources/iOS-Generic-HttpClient-Info.plist"; sourceTree = SOURCE_ROOT; };
+		789BBA812C18360F00D369DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		789BBA842C18371000D369DC /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +98,11 @@
 		787653F42C1499480086FBFC /* iOS.Generic HttpClient */ = {
 			isa = PBXGroup;
 			children = (
-				7876541F2C1499650086FBFC /* HTTPClient */,
 				787653F52C1499480086FBFC /* iOS_Generic_HttpClientApp.swift */,
-				787653F72C1499480086FBFC /* ContentView.swift */,
-				787653F92C14994B0086FBFC /* Assets.xcassets */,
+				789BBA442C18295A00D369DC /* Views */,
+				789BBA832C1836FE00D369DC /* ViewModels */,
+				789BBA3B2C17B69600D369DC /* Services */,
+				789BBA452C1829DB00D369DC /* Resources */,
 				787653FB2C14994B0086FBFC /* Preview Content */,
 			);
 			path = "iOS.Generic HttpClient";
@@ -127,6 +137,50 @@
 				789BBA372C17147C00D369DC /* HTTPMethod.swift */,
 			);
 			path = HTTPClient;
+			sourceTree = "<group>";
+		};
+		789BBA3B2C17B69600D369DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				789BBA3C2C17B6A500D369DC /* Repositries */,
+				7876541F2C1499650086FBFC /* HTTPClient */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		789BBA3C2C17B6A500D369DC /* Repositries */ = {
+			isa = PBXGroup;
+			children = (
+				789BBA3D2C17B6E600D369DC /* UserRepository.swift */,
+				789BBA3F2C17B77C00D369DC /* UserExchange.swift */,
+				789BBA412C17B7D600D369DC /* UserProvider.swift */,
+			);
+			path = Repositries;
+			sourceTree = "<group>";
+		};
+		789BBA442C18295A00D369DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				787653F72C1499480086FBFC /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		789BBA452C1829DB00D369DC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				789BBA432C17BBEB00D369DC /* iOS-Generic-HttpClient-Info.plist */,
+				789BBA812C18360F00D369DC /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		789BBA832C1836FE00D369DC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				789BBA842C18371000D369DC /* ContentViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,8 +264,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				789BBA822C18360F00D369DC /* Assets.xcassets in Resources */,
 				787653FD2C14994B0086FBFC /* Preview Assets.xcassets in Resources */,
-				787653FA2C14994B0086FBFC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,9 +287,13 @@
 				787653F82C1499480086FBFC /* ContentView.swift in Sources */,
 				789BBA382C17147C00D369DC /* HTTPMethod.swift in Sources */,
 				787653F62C1499480086FBFC /* iOS_Generic_HttpClientApp.swift in Sources */,
+				789BBA402C17B77C00D369DC /* UserExchange.swift in Sources */,
 				789BBA322C1707D000D369DC /* HTTPProvider.swift in Sources */,
 				787654212C1499750086FBFC /* HTTPClient.swift in Sources */,
+				789BBA852C18371000D369DC /* ContentViewModel.swift in Sources */,
+				789BBA3E2C17B6E600D369DC /* UserRepository.swift in Sources */,
 				789BBA362C17146900D369DC /* ContentType.swift in Sources */,
+				789BBA422C17B7D600D369DC /* UserProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +448,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iOS.Generic HttpClient/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS.Generic HttpClient/Resources/iOS-Generic-HttpClient-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -418,6 +477,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iOS.Generic HttpClient/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS.Generic HttpClient/Resources/iOS-Generic-HttpClient-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
